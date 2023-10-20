@@ -4,7 +4,6 @@ const initialState = {
   email: null,
   token: null,
   id: null,
-  balance: null,
 };
 
 const userSlice = createSlice({
@@ -15,17 +14,16 @@ const userSlice = createSlice({
       state.email = action.payload.email;
       state.token = action.payload.token;
       state.id = action.payload.id;
-      state.balance = action.payload.balance;
     },
-    addBalance(state, action) {
-      state.balance = action.payload.balance;
+    removeUser(state) {
+      state.email = null;
+      state.token = null;
+      state.id = null;
     },
-    subBalance(state, action) {
-      state.balance = action.payload.balance;
-    }
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, removeUser } = userSlice.actions;
 
 export default userSlice.reducer;
+
