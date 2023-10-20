@@ -4,6 +4,9 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { setUser } from '../store/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
 import Form from './Form';
+import { doc, runTransaction } from 'firebase/firestore';
+import { db } from '..';
+import { setOperations } from '../store/slice/transactSlice';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -20,10 +23,22 @@ const Login = () => {
             token: user.accessToken,
           }),
         );
+      })
+      .then(() => {
+        const transactionRef = doc(db, 'transact', email);
+        runTransaction(db, async (transaction) => {
+          const sfDoc = await transaction.get(transactionRef);
+          if (sfDoc.exists()) {
+            const data = sfDoc.data();
+            const operations = data.operations || [];
+            dispatch(setOperations(operations));
+          }
+        });
         navigate('/');
       })
-      .catch(() => alert('invalid user'));
+      .catch(() => alert('Invalid user'));
   };
+
   return (
     <Form
       title={'sign in'}
@@ -33,4 +48,3 @@ const Login = () => {
 };
 
 export default Login;
-
