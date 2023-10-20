@@ -31,18 +31,13 @@ const MainPage = () => {
       const updateBalance = async () => {
         const balanceDocRef = doc(db, 'balance', email);
         const transactionRef = doc(db, 'transact', email);
-        const timeRef = doc(db, 'time', 'TIMESTAMP');
 
         const balanceDoc = await getDoc(balanceDocRef);
 
         if (balanceDoc.exists()) {
           const currentBalance = balanceDoc.data().count;
           const lastUpdated = balanceDoc.data().lastUpdated;
-
-          await setDoc(timeRef, {
-            time: serverTimestamp(),
-          });
-          const currentTime = (await getDoc(timeRef)).data().time;
+          const currentTime = Timestamp.now();
 
           const timeDifference =
             currentTime.toMillis() - lastUpdated.toMillis();
