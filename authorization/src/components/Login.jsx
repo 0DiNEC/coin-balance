@@ -4,7 +4,7 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { setUser } from '../store/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
 import Form from './Form';
-import { doc, runTransaction } from 'firebase/firestore';
+import { doc, getDoc, runTransaction } from 'firebase/firestore';
 import { db } from '..';
 import { setOperations } from '../store/slice/transactSlice';
 
@@ -15,12 +15,17 @@ const Login = () => {
   const handleLogin = (email, password) => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
+      .then(async ({ user }) => {
+        const userRef = doc(db, 'accounts', email);
+        const sfDoc = await getDoc(userRef);
+        const data = sfDoc.data();
+        console.log(data)
         dispatch(
           setUser({
             email: user.email,
             id: user.uid,
             token: user.accessToken,
+            isAdmin: data.isAdmin
           }),
         );
       })
@@ -36,7 +41,7 @@ const Login = () => {
         });
         navigate('/');
       })
-      .catch(() => alert('Invalid user'));
+      .catch((err) => alert(err));
   };
 
   return (
