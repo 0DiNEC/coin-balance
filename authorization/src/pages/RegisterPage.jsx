@@ -8,7 +8,12 @@ const RegisterPage = () => {
       <h1>Register</h1>
       <SignUp />
       <p>
-        Already registered? <Link to='/login'>Log in</Link>
+        Already registered?{' '}
+        <Link
+          to='/login'
+          className='link'>
+          Log in
+        </Link>
       </p>
     </div>
   );

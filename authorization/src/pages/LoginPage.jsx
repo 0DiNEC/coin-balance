@@ -8,7 +8,12 @@ const LoginPage = () => {
       <h1>Login</h1>
       <Login />
       <p>
-        Haven't registered yet? <Link to='/register'>Sign up</Link>
+        Haven't registered yet?{' '}
+        <Link
+          to='/register'
+          className='link'>
+          Sign up
+        </Link>
       </p>
     </div>
   );

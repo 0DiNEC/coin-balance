@@ -1,0 +1,30 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form input {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.5rem;
+}
+
+.form button {
+  padding: 0.5rem;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  background: darkred;
+  box-shadow: inset 5px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: gold;
+  cursor: pointer;
+}
+
+.link {
+  color: aqua;
+}
+
