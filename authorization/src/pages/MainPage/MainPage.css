@@ -1,0 +1,47 @@
+.main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info__title {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.title-time {
+  font-size: 2rem;
+  color: gold;
+}
+
+.info-account__email,
+.info-account__balance {
+  margin-right: auto;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+.coin {
+  color: greenyellow;
+}
+
+.log-out {
+  padding: 0.5rem;
+  width: 80%;
+  margin: 1rem auto 0 auto;
+  border: none;
+  border-radius: 10px;
+  background: darkred;
+  box-shadow: inset 5px;
+  font-size: large;
+  font-weight: 700;
+  color: gold;
+  cursor: pointer;
+}
+

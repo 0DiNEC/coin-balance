@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '../../hooks/useAuth';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeUser } from '../store/slice/userSlice';
+import { removeUser } from '../../store/slice/userSlice';
 import {
   doc,
   setDoc,
@@ -12,9 +12,13 @@ import {
   runTransaction,
   Timestamp,
 } from 'firebase/firestore';
-import { db } from '..';
-import { removeOperations, addOperation } from '../store/slice/transactSlice';
-import TransactionList from '../components/TransactionList/TransactionList';
+import { db } from '../..';
+import {
+  removeOperations,
+  addOperation,
+} from '../../store/slice/transactSlice';
+import TransactList from '../../components/TransactionList/TransactList';
+import './MainPage.css';
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -57,7 +61,7 @@ const MainPage = () => {
           );
 
           let updatedBalance = currentBalance;
-          if (timeDifference >= 5000) {
+          if (timeDifference >= 10000) {
             updatedBalance += dailyCoinValue;
             const currentServerTime = Timestamp.now();
             const serverTimeDate = currentServerTime.toDate();
@@ -121,12 +125,18 @@ const MainPage = () => {
   }, [isAuth, email, id, HOURS, MINUTES, DAY, dispatch]);
 
   return isAuth ? (
-    <>
-      <div>
-        <h1>Next bonus after: {nextDailyBonusTime}</h1>
-        <h3>email: {email}</h3>
-        <h3>you balance: {balance}</h3>
+    <div className='main'>
+      <div className='main-info'>
+        <h1 className='info__title'>
+          Next bonus after:{' '}
+          <span className='title-time'>{nextDailyBonusTime}</span>
+        </h1>
+        <h3 className='info-account__email'>EMAIL: {email}</h3>
+        <h3 className='info-account__balance'>
+          BALANCE: <span className='coin'>{balance}</span>
+        </h3>
         <button
+          className='log-out'
           onClick={() => {
             dispatch(removeUser());
             dispatch(removeOperations());
@@ -134,8 +144,8 @@ const MainPage = () => {
           Log out
         </button>
       </div>
-      <TransactionList />
-    </>
+      <TransactList operations={operations} />
+    </div>
   ) : (
     <Navigate to='/login' />
   );

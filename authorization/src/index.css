@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: darkblue;
+  color: cyan;
 }
 
 code {
@@ -21,3 +23,4 @@ code {
   justify-content: center;
   align-items: center;
 }
+

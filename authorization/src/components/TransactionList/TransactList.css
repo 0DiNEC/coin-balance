@@ -1,0 +1,21 @@
+.transaction-block {
+  width: 40%;
+  height: 90vh;
+  overflow-y: auto;
+}
+
+.title {
+  text-align: center;
+}
+
+.transaction-item {
+  background: #00000080;
+  border-radius: 20px;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.transaction-item *{
+  margin: 0;
+}
+
