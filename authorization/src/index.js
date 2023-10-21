@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './store';
@@ -17,17 +17,12 @@ const app = initializeApp({
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 });
 export const db = getFirestore(app);
-
-export const Context = createContext(null);
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Context.Provider value={db}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </Context.Provider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
 );
 

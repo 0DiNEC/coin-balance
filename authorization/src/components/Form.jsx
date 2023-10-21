@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 import './Form.css';
 
 const Form = ({ title, handleClick, isCheckBox }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isCaptchaSuccessful, setIsCaptchaSuccess] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     handleClick(email, password, isAdmin);
   };
+
+  function onChange(value) {
+    setIsCaptchaSuccess(true);
+    console.log('captcha value: ', value);
+  }
 
   return (
     <form
@@ -40,7 +47,17 @@ const Form = ({ title, handleClick, isCheckBox }) => {
           <label htmlFor='admin_check'>make admin</label>
         </div>
       )}
-      <button type='submit'>{title}</button>
+      <ReCAPTCHA
+        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+        onChange={onChange}
+        size={'normal'}
+      />
+      <button
+        disabled={!isCaptchaSuccessful}
+        className={!isCaptchaSuccessful ? 'form-btn _disable' : 'form-btn _successes'}
+        type='submit'>
+        {title}
+      </button>
     </form>
   );
 };

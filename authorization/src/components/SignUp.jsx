@@ -8,21 +8,15 @@ import {
 import { setUser } from '../store/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
 import Form from './Form';
-import { Context, db } from '..';
-import { arrayUnion, doc, setDoc } from 'firebase/firestore';
+import { db } from '..';
+import { doc, setDoc } from 'firebase/firestore';
 
 const SignUp = () => {
-  const { app } = useContext(Context);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleRegistration = (email, password, isAdmin) => {
     const auth = getAuth();
-    const appCheck = initializeAppCheck(app, {
-      provider: new ReCaptchaEnterpriseProvider(
-        '6LeadLYoAAAAACA9PnNkQS1SLuYXORKwJA5mkvFB',
-      ),
-    });
     createUserWithEmailAndPassword(auth, email, password)
       .then(async ({ user }) => {
         const adminsRef = doc(db, 'accounts', email);
