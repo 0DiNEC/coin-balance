@@ -61,7 +61,7 @@ const MainPage = () => {
           );
 
           let updatedBalance = currentBalance;
-          if (timeDifference >= 10000) {
+          if (timeDifference >= DAY) {
             updatedBalance += dailyCoinValue;
             const currentServerTime = Timestamp.now();
             const serverTimeDate = currentServerTime.toDate();
