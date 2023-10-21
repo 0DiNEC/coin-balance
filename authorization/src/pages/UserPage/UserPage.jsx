@@ -77,7 +77,6 @@ const UserPage = ({ isAuth, email }) => {
                   timestamp: formattedDateTime,
                 }),
               );
-              console.log('set');
               transaction.set(transactionRef, { operations });
             });
 

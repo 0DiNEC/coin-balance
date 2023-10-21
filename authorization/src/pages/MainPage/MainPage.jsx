@@ -8,7 +8,7 @@ import './MainPage.css';
 const MainPage = () => {
   const { isAuth, email, isAdmin } = useAuth();
   if (isAuth) {
-    if (isAdmin)
+    if (!isAdmin)
       return (
         <UserPage
           isAuth={isAuth}

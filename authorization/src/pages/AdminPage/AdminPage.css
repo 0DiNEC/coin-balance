@@ -1,0 +1,58 @@
+.admin-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.users-list {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5rem;
+  padding: 0 2rem;
+  margin: 0.5rem 0;
+  gap: 2rem;
+}
+
+.account-info__email,
+.account-info__balance {
+  margin: 0.5rem 0;
+}
+
+.btn-add-coin,
+.btn-sub-coin {
+  padding: 0.5rem;
+  border: none;
+  background: darkblue;
+  color: cyan;
+  font-weight: 700;
+
+  transition: background 0.3s linear;
+  cursor: pointer;
+}
+
+.btn-sub-coin {
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+}
+
+.btn-sub-coin:hover {
+  background: darkred;
+}
+
+.btn-add-coin {
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+}
+
+.btn-add-coin:hover {
+  background: darkgreen;
+}
+
