@@ -16,31 +16,15 @@ import {
   setOperations,
 } from '../../store/slice/transactSlice';
 import TransactList from '../../components/TransactionList/TransactList';
+import { DAILY_COINS, DAY, HOURS, MINUTES } from '../../helpers/constValues';
+import { getFormattedDate } from '../../helpers/dateFormatted';
 
-const UserPage = ({isAuth, email}) => {
+const UserPage = ({ isAuth, email }) => {
   const dispatch = useDispatch();
   const operations = useSelector((state) => state.transact.operations);
 
   const [balance, setBalance] = useState(null);
   const [nextDailyBonusTime, setNextDailyBonusTime] = useState('');
-  
-  const MINUTES = 60 * 1000;
-  const HOURS = 60 * MINUTES;
-  const DAY = 24 * HOURS;
-
-  const dailyCoinValue = 1000;
-
-  const getFormattedDate = (serverTimeDate) => {
-    return serverTimeDate.toLocaleString('en-US', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      fractionalSecondDigits: 3,
-    });
-  };
 
   useEffect(() => {
     if (isAuth) {
@@ -71,7 +55,7 @@ const UserPage = ({isAuth, email}) => {
 
           let updatedBalance = currentBalance;
           if (timeDifference >= DAY) {
-            updatedBalance += dailyCoinValue;
+            updatedBalance += DAILY_COINS;
             const currentServerTime = Timestamp.now();
             const formattedDateTime = getFormattedDate(
               currentServerTime.toDate(),
@@ -80,14 +64,16 @@ const UserPage = ({isAuth, email}) => {
             await runTransaction(db, async (transaction) => {
               const sfDoc = await transaction.get(transactionRef);
               const data = sfDoc.data();
+              
               const operations = data.operations || [];
               operations.push({
-                amount: dailyCoinValue,
+                amount: DAILY_COINS,
                 timestamp: formattedDateTime,
               });
+
               dispatch(
                 addOperation({
-                  amount: dailyCoinValue,
+                  amount: DAILY_COINS,
                   timestamp: formattedDateTime,
                 }),
               );
@@ -104,35 +90,33 @@ const UserPage = ({isAuth, email}) => {
           setBalance(updatedBalance);
         } else {
           const currentTime = Timestamp.now();
-
-          await setDoc(balanceDocRef, {
-            count: dailyCoinValue,
-            lastUpdated: currentTime,
-          });
-
           const operations = [
             {
-              amount: dailyCoinValue,
+              amount: DAILY_COINS,
               timestamp: getFormattedDate(currentTime.toDate()),
             },
           ];
 
+          await setDoc(balanceDocRef, {
+            count: DAILY_COINS,
+            lastUpdated: currentTime,
+          });
+
           await setDoc(transactionRef, {
             operations,
           });
-          dispatch(setOperations(operations));
 
-          setBalance(dailyCoinValue);
+          dispatch(setOperations(operations));
+          setBalance(DAILY_COINS);
         }
       };
 
       const intervalId = setInterval(updateBalance, 5000);
-
       updateBalance();
-
+      
       return () => clearInterval(intervalId);
     }
-  }, [HOURS, MINUTES, DAY, dispatch, email, isAuth]);
+  }, [dispatch, email, isAuth]);
 
   return (
     <div className='main'>
