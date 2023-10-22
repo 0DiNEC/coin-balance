@@ -16,14 +16,14 @@ const app = initializeApp({
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 });
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
 export const Context = createContext(null);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Context.Provider value={(app, db)}>
+    <Context.Provider value={db}>
       <Provider store={store}>
         <App />
       </Provider>
