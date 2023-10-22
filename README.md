@@ -1,6 +1,6 @@
 # APPLICATION DEPLOYMENT
 
-[DEPLOY: APPLICATION](https://spontaneous-madeleine-7e530f.netlify.app/)
+[DEPLOY: APPLICATION](https://coin-balance.netlify.app/)
 
 ## Available Scripts
 
