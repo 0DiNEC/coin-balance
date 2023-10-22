@@ -15,7 +15,6 @@ const Form = ({ title, handleClick, isCheckBox }) => {
 
   function onChange(value) {
     setIsCaptchaSuccess(true);
-    console.log('captcha value: ', value);
   }
 
   return (
