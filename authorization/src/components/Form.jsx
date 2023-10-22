@@ -13,9 +13,8 @@ const Form = ({ title, handleClick, isCheckBox }) => {
     handleClick(email, password, isAdmin);
   };
 
-  function onChange(value) {
+  function onChange() {
     setIsCaptchaSuccess(true);
-    console.log('captcha value: ', value);
   }
 
   return (
